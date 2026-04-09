@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+__pycache__/
+*.pyc
+.cache/
+chroma/
+/chatbot-backend/.env
+/chatbot-frontend/.env
