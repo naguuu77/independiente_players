@@ -1,7 +1,7 @@
 import os
 import uuid
 import shutil
-from typing import Optional
+from typing import Optional, Dict, List
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,7 +33,7 @@ CHROMA_DIR = "/tmp/chatbot_chroma"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # In-memory document registry
-documents_registry: dict[str, dict] = {}
+documents_registry: Dict[str, dict] = {}
 
 # Global vector store
 vectorstore: Optional[Chroma] = None
@@ -49,11 +49,11 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     conversation_id: str
-    sources: list[str]
+    sources: List[str]
 
 
 # Conversation histories keyed by conversation_id
-conversation_histories: dict[str, list[dict[str, str]]] = {}
+conversation_histories: Dict[str, List[Dict[str, str]]] = {}
 
 
 def rebuild_vectorstore() -> Optional[Chroma]:
